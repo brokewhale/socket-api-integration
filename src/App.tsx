@@ -3,11 +3,24 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 import { useGetSupportedChains } from './services/queries/supportedChains.query';
+import { useGetFromTokenList } from './services/queries/fromTokenList.query';
 
 function App() {
   const [count, setCount] = useState(0);
-  const { data } = useGetSupportedChains();
-  console.log(data);
+  const { data: supportedChains } = useGetSupportedChains();
+  console.log(supportedChains);
+  const params = {
+    fromChainId: '10',
+    toChainId: '100',
+    disableSwapping: true,
+    includeDexes: ['oneinch', 'zerox', 'rainbow'],
+    includeBridges: ['hop', 'anyswap', 'anyswap-router-v4'],
+    singleTxOnly: true,
+    isShortList: true,
+  };
+
+  const { data: fromTokenList } = useGetFromTokenList(params);
+  console.log('fromTokenList', fromTokenList);
 
   return (
     <>
