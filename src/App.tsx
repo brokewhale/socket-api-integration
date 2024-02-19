@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
@@ -5,12 +6,9 @@ import './App.css';
 
 import { useGetQuote } from './services/queries/quote.query';
 import { useMutation } from '@tanstack/react-query';
-import { useGetFromTokenList } from './services/queries/fromTokenList.query';
-import { useGetSupportedChains } from './services/queries/supportedChains.query';
-import { useGetToTokenList } from './services/queries/toTokenList.query';
+
 import { buildTx } from './services/api/buildTx.service';
-import { BigNumber, ethers } from 'ethers';
-import { useCheckAllowance } from './services/queries/checkAllowance.query';
+import { ethers } from 'ethers';
 import { checkAllowance } from './services/api/checkAllowance.service';
 import { getApprovalTransactionData } from './services/api/approvalTransactionData.service';
 
@@ -22,42 +20,7 @@ function App() {
     allowanceTarget: null,
     tokenAddress: null,
   });
-  // const { data: supportedChains } = useGetSupportedChains();
-  // console.log(supportedChains);
-  // const params = {
-  //   fromChainId: '10',
-  //   toChainId: '100',
-  //   disableSwapping: true,
-  //   includeDexes: ['oneinch', 'zerox', 'rainbow'],
-  //   includeBridges: ['hop', 'anyswap', 'anyswap-router-v4'],
-  //   singleTxOnly: true,
-  //   isShortList: true,
-  // };
 
-  // const { data: fromTokenList } = useGetFromTokenList(params);
-  // console.log('fromTokenList', fromTokenList);
-  // const { data: toTokenList } = useGetToTokenList(params);
-  // console.log('toTokenList', toTokenList);
-
-  // const rr = quote?.result?.routes[0];
-  // console.log('quote', rr);
-
-  // const mutation = useMutation({
-  //   mutationFn: buildTx,
-  // });
-  // Uses web3 wallet in browser as provider
-  // let signer = null;
-
-  // let provider;
-  // async function connectWallet() {
-  //   // Request access to MetaMask account
-  //   provider = new ethers.BrowserProvider(window.ethereum);
-
-  //  signer =  await provider.getSigner();
-  // }
-  // console.log(signer);
-
-  // State variables for wallet connection status and address
   const [connected, setConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState('');
   const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -127,45 +90,6 @@ function App() {
       }
     },
   });
-
-  // async function gasEstimate(apiReturnData) {
-  //   const signer = await provider.getSigner();
-
-  //   const gasPrice = await signer.getGasPrice();
-  //   console.log('gasPrice', gasPrice._hex);
-
-  //   const gasEstimate = await provider.estimateGas({
-  //     from: walletAddress,
-  //     to: apiReturnData.result.txTarget,
-  //     value: apiReturnData.result.value,
-  //     data: apiReturnData.result.txData,
-  //     gasPrice: gasPrice,
-  //   });
-  //   console.log('gasEstimate', gasEstimate);
-  // }
-  // if (mutation.isSuccess) {
-  //   const approvalData = mutation?.data?.result?.approvalData;
-  //   const { minimumApprovalAmount, allowanceTarget } = approvalData;
-
-  //   // console.log('allowanceTarget', minimumApprovalAmount, allowanceTarget);
-  //   // gasEstimate(mutation.data);
-
-  //   if (approvalData !== null) {
-  //     const allowanceParam = {
-  //       chainID: Qparams.fromChainId,
-  //       owner: walletAddress,
-  //       allowanceTarget: allowanceTarget,
-  //       tokenAddress: Qparams.fromTokenAddress,
-  //     };
-  //     setAllowanceParams(allowanceParam);
-  //     // refetch();
-  //     // if (allowanceSuccess) {
-  //     //   console.log('allowance', allowance);
-  //     // }
-  //   }
-
-  //   // getGasPrice();
-  // }
 
   async function getApproval() {
     try {
