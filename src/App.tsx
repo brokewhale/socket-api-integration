@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg';
 import './App.css';
 import { useGetSupportedChains } from './services/queries/supportedChains.query';
 import { useGetFromTokenList } from './services/queries/fromTokenList.query';
+import { useGetToTokenList } from './services/queries/toTokenList.query';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,6 +22,8 @@ function App() {
 
   const { data: fromTokenList } = useGetFromTokenList(params);
   console.log('fromTokenList', fromTokenList);
+  const { data: toTokenList } = useGetToTokenList(params);
+  console.log('toTokenList', toTokenList);
 
   return (
     <>
