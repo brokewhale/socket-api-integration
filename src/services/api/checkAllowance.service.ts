@@ -9,7 +9,8 @@ export interface CheckAllowanceParams {
 }
 
 export const checkAllowance = async (params: CheckAllowanceParams) => {
-  const { data } = await api.get<SuccessResponse<unknown>>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data } = await api.get<SuccessResponse<any>>(
     '/v2/approval/check-allowance',
     {
       params,

@@ -12,7 +12,8 @@ export interface ApprovalTransactionDataParams {
 export const getApprovalTransactionData = async (
   params: ApprovalTransactionDataParams
 ) => {
-  const { data } = await api.get<SuccessResponse<unknown>>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data } = await api.get<SuccessResponse<any>>(
     '/v2/approval/build-tx',
     {
       params,
