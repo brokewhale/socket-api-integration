@@ -18,8 +18,8 @@ import { type AxiosResponse } from 'axios';
  *
  */
 export type SuccessResponse<T> = {
-  data: T;
-  status: string;
+  result: T;
+  success: string;
 };
 
 export type ServerResponse<T> = AxiosResponse<SuccessResponse<T>>;
